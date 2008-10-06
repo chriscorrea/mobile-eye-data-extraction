@@ -12,7 +12,7 @@ elsif ARGV.size == 2
     data_file = ARGV[0].to_s
   video_file = ARGV[1].to_s
 else
-  raise "Syntax: extract.rb <datafile> <videofile>" if ARGV.size < 1s  
+  raise "Syntax: extract.rb <datafile> <videofile>" if ARGV.size < 1  
 end
 
 class Fixation
@@ -56,7 +56,7 @@ data.each do |d|
   if d[2].to_i > 0 && d[2].to_i < 1000 && d[3].to_i > -1000 && d[3].to_i < 1000 && (  ((d[2].to_f-@f.x)*(d[2].to_f-@f.x))>x_squared ||  ((d[3].to_f-@f.y)*(d[3].to_f-@f.y))>y_squared )
       #if there is an old fixation and we start another potential fixation
       
-      
+      if(@f.duration>=required_frames)
         results.push([results.size,@f.start,@f.duration])
       end
       
