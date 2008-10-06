@@ -1,0 +1,16 @@
+Mobile-Eye-Data-Extraction is a simple script to make sense of the data files generated from ASL's Mobile Eye Eye Tracker / EyeVision software.
+
+*** Usage ***
+ruby extract.rb <datafile.csv> <optionalVideo.csv>
+
+The script will generate two new .csv files:
+
+*** timecodes.csv ***
+This simply creates one row per each fixation. A timestamp is included in each row. This file can be imported into transcription software to help with coding.
+
+*** data.csv ***
+This creates one row per fixation. Each row includes a unique id, a timestamp, and a duration (represented by frames).
+
+*** TODO ***
+- Command line config options to cusomize definition of a fixation
+- Scene detection
