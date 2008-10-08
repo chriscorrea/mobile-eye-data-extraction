@@ -25,15 +25,22 @@ class Fixation
        @start = start
        @duration = 1  
   end
+  
+  def formatted_timestamp
+    @fields = @start.split(/\./) 
+    return @fields[0] + '.' + (@fields[1].to_i * 100).to_s
+  end
 end
 
 #SET GLOBAL PREF (these should be customizable eventually)
   #max allowable square of x coordinate difference between two frames of a single fixation
-  x_squared = 9;
+  x_squared = 9
   #max allowable square of y coordinate difference between two frames of a single fixation
-  y_squared = 9;
+  y_squared = 9
   #min consecutive frames to be saved as a valid fixation
-  required_frames = 3;
+  required_frames = 3
+  #transform fraction of a second
+  sec_transform = 100
   
 puts 'Mobile Eye Data Extraction'
 puts 'By Christopher Correa'
@@ -57,7 +64,7 @@ data.each do |d|
       #if there is an old fixation and we start another potential fixation
       
       if(@f.duration>=required_frames)
-        results.push([results.size,@f.start,@f.duration])
+        results.push([results.size,@f.formatted_timestamp,@f.duration])
       end
       
       #Create a new eye event (a potential fixations)
@@ -66,13 +73,13 @@ data.each do |d|
   elsif d[2].to_i > 0 && d[2].to_i < 1000 && d[3].to_i > -1000 && d[3].to_i < 1000
       
       #These is valid data here, so we are continuing an existing fixation and will increase duration
-      @f.duration = @f.duration + 1;
+      @f.duration = @f.duration + 1
   else
     #No good data here (missing or not valid)!
     
     if(@f.duration>=required_frames)
       #If the old fixation is valid, save it to results array
-      results.push([results.size,@f.start,@f.duration])
+      results.push([results.size,@f.formatted_timestamp,@f.duration])
     end
     
     #Now just initiate a new dummy eye event and move on to next row
