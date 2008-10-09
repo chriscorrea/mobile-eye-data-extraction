@@ -28,7 +28,7 @@ class Fixation
   
   def formatted_timestamp
     @fields = @start.split(/\./) 
-    return @fields[0] + '.' + (@fields[1].to_i * 100).to_s
+    return @fields[0] + '.' + (@fields[1].to_i * 10).to_s
   end
 end
 
