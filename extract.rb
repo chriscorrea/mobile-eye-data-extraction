@@ -1,5 +1,3 @@
-require 'rubygems'
-require 'ftools'
 #require 'rvideo'
 require 'csv'
 
